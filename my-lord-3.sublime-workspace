@@ -1,0 +1,757 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"owned",
+				"DownloadHandler.ReceiveData(data, dataLength)"
+			],
+			[
+				"writeFil",
+				"writeFileSync\tfunction"
+			],
+			[
+				"email",
+				"Email"
+			],
+			[
+				"image",
+				"image2base64"
+			],
+			[
+				"create",
+				"createWriteStream"
+			],
+			[
+				"addP",
+				"addPopuliLink\tproperty"
+			],
+			[
+				"spread",
+				"spreadsheetId\twarning"
+			],
+			[
+				"purchase",
+				"purchaseButton\tconst"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Assets/Scripts/Building.cs",
+			"settings":
+			{
+				"buffer_size": 931,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"edit",
+				"Project: Edit Project"
+			],
+			[
+				"re",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Disable Package"
+			],
+			[
+				"html ",
+				"HTMLBeautify"
+			],
+			[
+				"rei",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"editp",
+				"Project: Edit Project"
+			],
+			[
+				"mater",
+				"Material Theme: Configuration"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": true,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jay/node/cia-airtable/views/processAttachments.ejs",
+		"/Users/jay/node/cia-airtable/.gitignore",
+		"/Users/jay/node/cia-airtable/constants.js",
+		"/Users/jay/node/cia-airtable/.env",
+		"/Users/jay/node/cia-airtable/test/drive.js",
+		"/Users/jay/unity/my-lord-3/Assets/Scripts/BuildingManager.cs",
+		"/Users/jay/unity/my-lord-3/Assets/Scripts/GameManager.cs",
+		"/Users/jay/unity/my-lord-3/Assets/Scripts/Purse.cs",
+		"/Users/jay/unity/my-lord-3/Assets/Scripts/Building.cs",
+		"/Users/jay/unity/my-lord-3/Assets/Scripts/Building.cs.cs",
+		"/Users/jay/node/cia-airtable/gmailer.js",
+		"/Users/jay/node/cia-airtable/templates.js",
+		"/Users/jay/node/cia-airtable/test/airtable.js",
+		"/Users/jay/node/cia-airtable/views/setEnrollmentTerm.ejs",
+		"/Users/jay/node/cia-airtable/views/newLeads.ejs",
+		"/Users/jay/node/cia-airtable/logs/combined.log",
+		"/Users/jay/node/cia-airtable/package.json",
+		"/Users/jay/node/cia-airtable/test/studentCreation.js",
+		"/Users/jay/node/cia-airtable/services/studentCreation.js",
+		"/Users/jay/node/cia-airtable/airtable.js",
+		"/Users/jay/node/cia-airtable/settings.json",
+		"/Users/jay/node/cia-airtable/services/drive.js",
+		"/Users/jay/node/cia-airtable/.env.template",
+		"/Users/jay/node/cia-airtable/settings.js",
+		"/Users/jay/node/cia-airtable/views/index.ejs",
+		"/Users/jay/node/cia-airtable/token.json",
+		"/Users/jay/node/cia-airtable/config.js",
+		"/Users/jay/node/cia-airtable/test/gmailer.js",
+		"/Users/jay/node/cia-airtable/services/populi.js",
+		"/Users/jay/node/cia-airtable/test/leadsManager.js",
+		"/Users/jay/node/cia-airtable/test/populi.js",
+		"/Users/jay/node/cia-airtable/index.js",
+		"/Users/jay/node/cia-airtable/test/imageRead.js",
+		"/Users/jay/node/cia-airtable/services/imageRead.js",
+		"/Users/jay/node/cia-airtable/todo.txt",
+		"/Users/jay/node/cia-airtable/README.md",
+		"/Users/jay/node/cia-airtable/tests/populi.js",
+		"/Users/jay/node/cia-airtable/views/populiLogin.ejs",
+		"/Users/jay/node/cia-airtable/views/partials/footer.ejs",
+		"/Users/jay/node/cia-airtable/config/winston.js",
+		"/Users/jay/node/cia-airtable/tests/leadsManager.js",
+		"/Users/jay/node/cia-airtable/tests/gmailer.js",
+		"/Users/jay/node/cia-airtable/parser.js",
+		"/Users/jay/node/cia-airtable/leadsManager.js",
+		"/Users/jay/node/cia-airtable/views/logCorrespondence.ejs",
+		"/Users/jay/node/cia-airtable/views/manuallyAddLead.ejs",
+		"/Users/jay/node/cia-airtable/views/partials/head.ejs",
+		"/Users/jay/node/cia-airtable/header.ejs",
+		"/Users/jay/node/cia-airtable/views/partials/header.ejs",
+		"/Users/jay/node/cia-airtable/nodemon.json",
+		"/Users/jay/node/cia-airtable/gmailReader.js",
+		"/Users/jay/node/cia-airtable/views/index.html",
+		"/Users/jay/node/cia-airtable/config.template.js",
+		"/Users/jay/node/cia-airtable/cia-airtable.sublime-project",
+		"/Users/jay/node/cia-airtable/sampleClient.js",
+		"/Users/jay/node/cia/views/home.ejs",
+		"/Users/jay/node/cia/sampleClient.js",
+		"/Users/jay/node/cia/test/parser.js",
+		"/Users/jay/node/cia/.gitignore",
+		"/Users/jay/node/cia/templates.js",
+		"/Users/jay/.ssh/known_hosts",
+		"/Users/adminmac1/node/cia/test.html",
+		"/Users/adminmac1/node/cia/test/templates.js",
+		"/Users/adminmac1/node/cia/templates.js",
+		"/Users/adminmac1/node/cia/samples/contact_us_form.html",
+		"/Users/adminmac1/node/cia/test/gmail.js",
+		"/Users/adminmac1/node/cia/samples/get_in_touch.html",
+		"/Users/adminmac1/node/cia/index.js",
+		"/Users/adminmac1/node/cia/samples/new_entry_new_candidate.html",
+		"/Users/adminmac1/node/cia/config.json",
+		"/Users/adminmac1/node/cia/sampleClient.js",
+		"/Users/adminmac1/node/cia/test/parser.js",
+		"/Users/adminmac1/node/cia/test/template.js",
+		"/Users/adminmac1/node/cia/package.json",
+		"/Users/adminmac1/node/cia/samples/table.html",
+		"/Users/adminmac1/node/cia/cia.sublime-project",
+		"/Users/rs/node/ci-admissions/.gitignore",
+		"/Users/rs/node/ci-admissions/index.js",
+		"/Users/rs/node/ci-admissions/tests/authorization.js",
+		"/Users/rs/node/gtw-auth/.gitignore",
+		"/Users/rs/node/gtw-auth/.env",
+		"/Users/rs/node/gtw-auth/package.json",
+		"/Users/rs/node/gtw-auth/test/index.js",
+		"/Users/rs/node/gtw-auth/test:index.js",
+		"/Users/rs/node/gtw-auth/gtw-auth.sublime-project",
+		"/Users/rs/node/gotowebinar-addon/gotowebinar-addon.sublime-project",
+		"/Users/rs/node/mylord/mylord.sublime-project",
+		"/Users/rs/node/mylord/src/App.js"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"SSC",
+			"production",
+			"docs",
+			"int",
+			"time",
+			"Time",
+			"time",
+			"MonoBehaviour",
+			"drive",
+			"getOrCreateLeadDocs",
+			"lead",
+			"docs",
+			"lead",
+			"promise.all(_.map",
+			"from",
+			"17,9",
+			"17",
+			"u",
+			".....",
+			"....",
+			"...",
+			".....",
+			"....",
+			"...",
+			"file",
+			"selectpicker",
+			"res.",
+			"app.post",
+			"path.ext",
+			"uploads",
+			"log",
+			"logger.",
+			"logger",
+			"winston",
+			"email",
+			"h1",
+			"attachments",
+			"from",
+			"data",
+			"files",
+			"currentTermDir",
+			"1Gr_84wTEvsQ7mLJrZcaEdk1uNVUwmnkp",
+			"getCurrenTerm",
+			"getcurren",
+			"let",
+			"january 2021",
+			"template",
+			"january",
+			"winter 2021",
+			"currentTerm",
+			"settings",
+			"terms",
+			"airtable",
+			"leadsManager",
+			"files",
+			"gmail",
+			"markread",
+			"message.id",
+			"id",
+			"notMe",
+			"orange",
+			"force",
+			"refresh_token",
+			"TOKEN_PATH",
+			"hasLeads",
+			"init",
+			"constants",
+			"readsync",
+			"getaccesstoken",
+			"googleapis",
+			"oauth2client",
+			"initial",
+			"email",
+			"got",
+			"approotpa",
+			"fs",
+			"path",
+			"filename",
+			"postal",
+			"state",
+			"city",
+			"street",
+			"self",
+			"console.log",
+			"isarray",
+			"name",
+			"person.id",
+			"\"",
+			"Email",
+			"state",
+			"Street",
+			"street",
+			"socialSecurityNumber",
+			"promise.all",
+			"airtable",
+			"promise.all",
+			"populi",
+			"table",
+			"Populi",
+			"true",
+			"form-data",
+			"airtable",
+			"'/'",
+			"client",
+			"auth",
+			"got",
+			"leadsmanager",
+			"leads",
+			"fall 2020",
+			"september",
+			"august",
+			"getmess",
+			"ququ",
+			"newLeads",
+			"chunk",
+			"leads",
+			"oAuth2Client",
+			"oauth2c",
+			"getMessages",
+			"leadsManager",
+			"getmess",
+			"send",
+			"status",
+			"logCorrespondence",
+			"id",
+			"status",
+			".status",
+			"'"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/Building.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 931,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 68.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "my-lord-3.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"giti",
+				".gitignore"
+			],
+			[
+				"pr",
+				"views/processAttachments.ejs"
+			],
+			[
+				"git",
+				".gitignore"
+			],
+			[
+				"en",
+				".env"
+			],
+			[
+				"con",
+				"constants.js"
+			],
+			[
+				"air",
+				"test/airtable.js"
+			],
+			[
+				"dri",
+				"services/drive.js"
+			],
+			[
+				"testai",
+				"test/airtable.js"
+			],
+			[
+				"templ",
+				"templates.js"
+			],
+			[
+				"testair",
+				"test/airtable.js"
+			],
+			[
+				"newlad",
+				"views/newLeads.ejs"
+			],
+			[
+				"gmail",
+				"gmailer.js"
+			],
+			[
+				"combin",
+				"logs/combined.log"
+			],
+			[
+				"paca",
+				"package.json"
+			],
+			[
+				"inde",
+				"index.js"
+			],
+			[
+				"set",
+				"views/setEnrollmentTerm.ejs"
+			],
+			[
+				"airta",
+				"airtable.js"
+			],
+			[
+				"st",
+				"services/studentCreation.js"
+			],
+			[
+				"stude",
+				"test/studentCreation.js"
+			],
+			[
+				"teststu",
+				"test/studentCreation.js"
+			],
+			[
+				"gma",
+				"gmailer.js"
+			],
+			[
+				"airt",
+				"airtable.js"
+			],
+			[
+				"drive",
+				"services/drive.js"
+			],
+			[
+				"sett",
+				"settings.json"
+			],
+			[
+				"setem",
+				"views/setEnrollmentTerm.ejs"
+			],
+			[
+				"templa",
+				"templates.js"
+			],
+			[
+				"temp",
+				"templates.js"
+			],
+			[
+				"envte",
+				".env.template"
+			],
+			[
+				"constan",
+				"constants.js"
+			],
+			[
+				"newl",
+				"views/newLeads.ejs"
+			],
+			[
+				"env",
+				".env"
+			],
+			[
+				"index",
+				"views/index.ejs"
+			],
+			[
+				"toke",
+				"token.json"
+			],
+			[
+				"token",
+				"token.json"
+			],
+			[
+				"index.e",
+				"views/index.ejs"
+			],
+			[
+				"testgma",
+				"test/gmailer.js"
+			],
+			[
+				"gi",
+				".gitignore"
+			],
+			[
+				"tem",
+				"templates.js"
+			],
+			[
+				"neal",
+				"views/newLeads.ejs"
+			],
+			[
+				"leadsm",
+				"test/leadsManager.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"const",
+				"constants.js"
+			],
+			[
+				"pop",
+				"services/populi.js"
+			],
+			[
+				"testpop",
+				"test/populi.js"
+			],
+			[
+				"testpo",
+				"test/populi.js"
+			],
+			[
+				"pacak",
+				"package.json"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"CONST",
+				"constants.js"
+			],
+			[
+				"leads",
+				"leadsManager.js"
+			],
+			[
+				"gmai",
+				"tests/gmailer.js"
+			],
+			[
+				"test/",
+				"tests/leadsManager.js"
+			],
+			[
+				"pars",
+				"parser.js"
+			],
+			[
+				"conf",
+				"config.js"
+			],
+			[
+				"ind",
+				"index.js"
+			],
+			[
+				"testpa",
+				"test/parser.js"
+			],
+			[
+				"c",
+				"config.json"
+			],
+			[
+				"sampl",
+				"sampleClient.js"
+			],
+			[
+				"sample",
+				"sampleClient.js"
+			],
+			[
+				"testp",
+				"test/parser.js"
+			],
+			[
+				"testu",
+				"test/test-utils.js"
+			],
+			[
+				".en",
+				".env"
+			],
+			[
+				"gitig",
+				".gitignore"
+			],
+			[
+				"ine",
+				"index.js"
+			],
+			[
+				"play",
+				"player.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 241.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
