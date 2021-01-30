@@ -12,7 +12,6 @@ public class Building : Clickable
 
 	bool owned = false;
     bool hasTenants = true;
-    float rentTimer = 0;
     bool tenantsPayingRent = true;
 
     public bool Selected { get; private set; }
@@ -72,14 +71,6 @@ public class Building : Clickable
                     }
                 }
             }
-
-            rentTimer += Time.deltaTime;
-            if (rentTimer >= 5) {
-                if (hasTenants) {
-                    Purse.wealth += Rent;
-                }
-                rentTimer = 0;
-            }
         }
     }
 
@@ -132,6 +123,19 @@ public class Building : Clickable
         Events.instance.Raise(new DeselectBuildingEvent());
         Selected = false;
         transform.localScale = startingScale;
+    }
+    #endregion
+
+    #region IClickable
+    protected override void AddListeners() {
+        base.AddListeners();
+        Events.instance.AddListener<NewMonthEvent>(OnNewMonthEvent);
+    }
+
+    void OnNewMonthEvent(NewMonthEvent e) {
+        if (owned && hasTenants) {
+            Purse.wealth += Rent;
+        }
     }
     #endregion
 }

@@ -8,9 +8,13 @@ public class HUD : MBUI
 {
 	public Text purseText;
 	public Text buildingInfoText;
+    public Text clockText;
+
+    public GameClock gameClock;
 
     void Update() {
     	purseText.GetComponent<Text>().text = "$" + Purse.wealth.ToDisplay();
+        clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
     }
 
     protected override void AddListeners() {
