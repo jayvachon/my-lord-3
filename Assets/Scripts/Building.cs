@@ -9,16 +9,36 @@ public class Building : Clickable
     public float startingValue = 100000;
     public Material ownedMaterial;
     public Material unownedMaterial;
+    public Material renovatingMaterial;
 
 	bool owned = false;
     bool hasTenants = true;
     bool tenantsPayingRent = true;
+
+    int currentMonth = 1;
+
+    public bool EvictionOrder { get; private set; }
 
     public bool Selected { get; private set; }
 
 	public float Value {
 		get { return startingValue * BuildingManager.valueMultiplier; }
 	}
+
+    public float RenovationCost {
+        get { return startingValue * 0.2f; }
+    }
+
+    int renovationStart = 1;
+    public bool Renovating { get; private set; }
+
+    public bool Owned {
+        get { return owned; }
+    }
+
+    public bool HasTenants {
+        get { return hasTenants; }
+    }
 
     float Rent {
         get { return startingValue * 0.02f; }
@@ -45,29 +65,31 @@ public class Building : Clickable
 
             	// Sell
             	if (Input.GetKeyDown(KeyCode.S)) {
-        			Sell();
+                    if (!Renovating) Sell();
             	}
 
                 // Evict
                 if (Input.GetKeyDown(KeyCode.E)) {
                     if (hasTenants) {
-                        Debug.Log("Tenants evicted");
-                        hasTenants = false;
+                        Evict();
                     }
                 }
 
                 if (Input.GetKeyDown(KeyCode.L)) {
                     if (!hasTenants) {
                         Debug.Log("Leased to tenants");
+                        tenantsPayingRent = true;
                         hasTenants = true;
                     }
                 }
 
                 if (Input.GetKeyDown(KeyCode.R)) {
-                    if (!hasTenants && Purse.wealth >= startingValue * 0.2f) {
-                        Debug.Log("Renovated! Value increased.");
-                        Purse.wealth -= startingValue * 0.2f;
-                        startingValue *= 1.5f;
+                    if (!hasTenants && Purse.wealth >= RenovationCost) {
+                        Debug.Log("Renovating");
+                        Purse.wealth -= RenovationCost;
+                        renovationStart = currentMonth;
+                        Renovating = true;
+                        GetComponent<MeshRenderer>().material = renovatingMaterial;
                     }
                 }
             }
@@ -78,7 +100,7 @@ public class Building : Clickable
         Debug.Log("Bought for " + Value);
         owned = true;
         Purse.wealth -= Value;
-        GetComponent<MeshRenderer>().material = ownedMaterial; 
+        GetComponent<MeshRenderer>().material = ownedMaterial;
     }
 
     void Sell() {
@@ -86,6 +108,21 @@ public class Building : Clickable
         owned = false;
         Purse.wealth += Value;
         GetComponent<MeshRenderer>().material = unownedMaterial;
+    }
+
+    void Evict() {
+        if (Random.value >= 0.5f) {
+            Debug.Log("Tenants refuse to leave");
+            tenantsPayingRent = false;
+            EvictionOrder = true;
+        } else {
+            CompleteEviction();
+        }
+    }
+
+    void CompleteEviction() {
+        Debug.Log("Tenants evicted");
+        hasTenants = false;   
     }
 
     #region Clickable
@@ -130,11 +167,25 @@ public class Building : Clickable
     protected override void AddListeners() {
         base.AddListeners();
         Events.instance.AddListener<NewMonthEvent>(OnNewMonthEvent);
+        Events.instance.AddListener<CallPoliceEvent>(OnCallPoliceEvent);
     }
 
     void OnNewMonthEvent(NewMonthEvent e) {
-        if (owned && hasTenants) {
+        currentMonth = e.Month;
+        if (owned && hasTenants && tenantsPayingRent) {
             Purse.wealth += Rent;
+        }
+        if (Renovating && (currentMonth - renovationStart > 6)) {
+            Renovating = false;
+            startingValue *= 1.5f;
+            Debug.Log("Renovated! Value increased.");
+            GetComponent<MeshRenderer>().material = ownedMaterial;
+        }
+    }
+
+    void OnCallPoliceEvent(CallPoliceEvent e) {
+        if (Selected && EvictionOrder) {
+            CompleteEviction();
         }
     }
     #endregion

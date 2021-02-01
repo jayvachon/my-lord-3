@@ -5,8 +5,10 @@ namespace EventSystem {
 
 	public class NewMonthEvent : GameEvent {
 
-		public NewMonthEvent () {
-			
+		public readonly int Month;
+
+		public NewMonthEvent (int month) {
+			Month = month;
 		}
 	}
 }

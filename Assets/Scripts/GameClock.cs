@@ -19,7 +19,7 @@ public class GameClock : MB
     	monthTimer += Time.deltaTime;
     	if (monthTimer >= 5) {
     		Month ++;
-    		Events.instance.Raise(new NewMonthEvent());
+    		Events.instance.Raise(new NewMonthEvent(Month));
     		monthTimer = 0;
     	}
     }
