@@ -20,11 +20,14 @@ public class HUD : MBUI
         clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
 
         if (selectedBuilding != null) {
-            string buildingInfo = "$" + selectedBuilding.Value.ToDisplay();
+            string buildingInfo = "$" + selectedBuilding.PropertyValue.ToDisplay();
             if (selectedBuilding.Owned) {
                 if (selectedBuilding.HasTenants) {
                     buildingInfo += "\n<E> Evict tenants" +
                         "\n<S> Sell";
+                    if (selectedBuilding.NeedsRepair) {
+                        buildingInfo += "\n<F> Fix";
+                    }
                 } else {
                     if (!selectedBuilding.Renovating) {
                         buildingInfo += "\n<R> Renovate for $" + selectedBuilding.RenovationCost.ToDisplay() +

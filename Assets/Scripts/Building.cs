@@ -10,6 +10,7 @@ public class Building : Clickable
     public Material ownedMaterial;
     public Material unownedMaterial;
     public Material renovatingMaterial;
+    public GameObject attention;
 
 	bool owned = false;
     bool hasTenants = true;
@@ -18,11 +19,13 @@ public class Building : Clickable
     int currentMonth = 1;
 
     public bool EvictionOrder { get; private set; }
-
     public bool Selected { get; private set; }
+    public bool NeedsRepair { get; private set; }
 
-	public float Value {
-		get { return startingValue * BuildingManager.valueMultiplier; }
+	public float PropertyValue {
+		get { 
+            return startingValue * BuildingManager.valueMultiplier; 
+        }
 	}
 
     public float RenovationCost {
@@ -41,20 +44,28 @@ public class Building : Clickable
     }
 
     float Rent {
-        get { return startingValue * 0.02f; }
+        get { return startingValue * 0.04f; }
     }
 
     Vector3 startingScale;
 
     void Start() {
         startingScale = transform.localScale;
+        attention.gameObject.SetActive(false);
+    }
+
+    public void Init(BuildingConfig b) {
+        transform.localScale = new Vector3(transform.localScale.x, b.height, transform.localScale.z);
+        transform.position = new Vector3(transform.position.x, b.height / 2f, transform.position.z);
+        startingScale = transform.localScale;
+        startingValue = b.value;
     }
 
     void Update() {
 
     	// Buy
     	if (Input.GetKeyDown(KeyCode.B)) {
-    		if (Selected && Purse.wealth >= Value) {
+    		if (Selected && Purse.wealth >= PropertyValue) {
     			Buy();
     		}
     	}
@@ -75,6 +86,7 @@ public class Building : Clickable
                     }
                 }
 
+                // Lease
                 if (Input.GetKeyDown(KeyCode.L)) {
                     if (!hasTenants) {
                         Debug.Log("Leased to tenants");
@@ -83,6 +95,7 @@ public class Building : Clickable
                     }
                 }
 
+                // Renovate
                 if (Input.GetKeyDown(KeyCode.R)) {
                     if (!hasTenants && Purse.wealth >= RenovationCost) {
                         Debug.Log("Renovating");
@@ -92,21 +105,31 @@ public class Building : Clickable
                         GetComponent<MeshRenderer>().material = renovatingMaterial;
                     }
                 }
+
+                // Fix
+                if (Input.GetKeyDown(KeyCode.F)) {
+                    if (NeedsRepair && Purse.wealth >= 100) {
+                        Debug.Log("Fix");
+                        Purse.wealth -= 100;
+                        NeedsRepair = false;
+                        attention.gameObject.SetActive(false);                       
+                    }
+                }
             }
         }
     }
 
     void Buy() {
-        Debug.Log("Bought for " + Value);
+        Debug.Log("Bought for " + PropertyValue);
         owned = true;
-        Purse.wealth -= Value;
+        Purse.wealth -= PropertyValue;
         GetComponent<MeshRenderer>().material = ownedMaterial;
     }
 
     void Sell() {
-        Debug.Log("Sold for " + Value);
+        Debug.Log("Sold for " + PropertyValue);
         owned = false;
-        Purse.wealth += Value;
+        Purse.wealth += PropertyValue;
         GetComponent<MeshRenderer>().material = unownedMaterial;
     }
 
@@ -122,7 +145,8 @@ public class Building : Clickable
 
     void CompleteEviction() {
         Debug.Log("Tenants evicted");
-        hasTenants = false;   
+        hasTenants = false;
+        GameObjectPool.Instantiate("UnhousedPerson", new Vector3(0f, 0.26f, -1f));
     }
 
     #region Clickable
@@ -173,8 +197,18 @@ public class Building : Clickable
     void OnNewMonthEvent(NewMonthEvent e) {
         currentMonth = e.Month;
         if (owned && hasTenants && tenantsPayingRent) {
+            
+            // collect rent
             Purse.wealth += Rent;
+
+            // there's a chance a repair is needed
+            if (Random.value >= 0.8f) {
+                NeedsRepair = true;
+                attention.gameObject.SetActive(true);
+            }
         }
+
+        // renovation takes 6 months
         if (Renovating && (currentMonth - renovationStart > 6)) {
             Renovating = false;
             startingValue *= 1.5f;
@@ -184,7 +218,7 @@ public class Building : Clickable
     }
 
     void OnCallPoliceEvent(CallPoliceEvent e) {
-        if (Selected && EvictionOrder) {
+        if (EvictionOrder) {
             CompleteEviction();
         }
     }

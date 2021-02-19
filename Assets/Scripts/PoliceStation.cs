@@ -6,6 +6,7 @@ using EventSystem;
 public class PoliceStation : Clickable
 {
     public override void ClickThis() {
+    	Debug.Log ("Police called");
      	Events.instance.Raise(new CallPoliceEvent());
     }
 }

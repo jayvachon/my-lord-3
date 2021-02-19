@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EventSystem;
 
 public class GameManager : MonoBehaviour
 {
-	float valueTime = 0;
+	void Awake() {
+		Events.instance.AddListener<NewMonthEvent>(OnNewMonthEvent);
+	}
 
-    void Update() {
-
-    	valueTime += Time.deltaTime;
-    	if (valueTime >= 30) {
-    		BuildingManager.valueMultiplier += 0.1f;
+	void OnNewMonthEvent(NewMonthEvent e) {
+		if (e.Month % 12 == 0) {
+			BuildingManager.valueMultiplier += 0.1f;
     		Debug.Log(BuildingManager.valueMultiplier);
-    		valueTime = 0;
-    	}
-    }
+		}
+	}
 }
