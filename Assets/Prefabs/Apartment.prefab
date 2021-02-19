@@ -137,9 +137,9 @@ GameObject:
   - component: {fileID: 3469023602471443118}
   - component: {fileID: 4001382571425567127}
   - component: {fileID: 1108431189117439971}
-  - component: {fileID: 8590968033299613470}
+  - component: {fileID: 1778856793044653724}
   m_Layer: 0
-  m_Name: Building
+  m_Name: Apartment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8590968033299613470
+--- !u!114 &1778856793044653724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 6ffc267ba7d6943f4bc7b2cdcbac6d6d, type: 3}
+  m_Script: {fileID: 11500000, guid: da49e466a5bf242bcbfb232305515b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingValue: 100000

@@ -12,25 +12,25 @@ public class HUD : MBUI
 
     public GameClock gameClock;
 
-    Building selectedBuilding = null;
+    Apartment selectedApartment = null;
 
     void Update() {
         
     	purseText.GetComponent<Text>().text = "$" + Purse.wealth.ToDisplay();
         clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
 
-        if (selectedBuilding != null) {
-            string buildingInfo = "$" + selectedBuilding.PropertyValue.ToDisplay();
-            if (selectedBuilding.Owned) {
-                if (selectedBuilding.HasTenants) {
+        if (selectedApartment != null) {
+            string buildingInfo = "$" + selectedApartment.PropertyValue.ToDisplay();
+            if (selectedApartment.Owned) {
+                if (selectedApartment.HasTenants) {
                     buildingInfo += "\n<E> Evict tenants" +
                         "\n<S> Sell";
-                    if (selectedBuilding.NeedsRepair) {
+                    if (selectedApartment.NeedsRepair) {
                         buildingInfo += "\n<F> Fix";
                     }
                 } else {
-                    if (!selectedBuilding.Renovating) {
-                        buildingInfo += "\n<R> Renovate for $" + selectedBuilding.RenovationCost.ToDisplay() +
+                    if (!selectedApartment.Renovating) {
+                        buildingInfo += "\n<R> Renovate for $" + selectedApartment.RenovationCost.ToDisplay() +
                             "\n<L> Lease" +
                             "\n<S> Sell";
                     }
@@ -43,16 +43,16 @@ public class HUD : MBUI
     }
 
     protected override void AddListeners() {
-    	Events.instance.AddListener<SelectBuildingEvent>(OnSelectBuildingEvent);
-    	Events.instance.AddListener<DeselectBuildingEvent>(OnDeselectBuildingEvent);
+    	Events.instance.AddListener<SelectApartmentEvent>(OnSelectApartmentEvent);
+    	Events.instance.AddListener<DeselectApartmentEvent>(OnDeselectApartmentEvent);
     }
 
-    void OnSelectBuildingEvent(SelectBuildingEvent e) {
-        selectedBuilding = e.Building;
+    void OnSelectApartmentEvent(SelectApartmentEvent e) {
+        selectedApartment = e.Apartment;
     }
 
-    void OnDeselectBuildingEvent(DeselectBuildingEvent e) {
-        selectedBuilding = null;
+    void OnDeselectApartmentEvent(DeselectApartmentEvent e) {
+        selectedApartment = null;
     	buildingInfoText.GetComponent<Text>().text = "";
     }
 }
