@@ -21,9 +21,11 @@ public class Apartment : Building
         public bool Selected { get; private set; }
         public bool NeedsRepair { get; private set; }
 
-    	public float PropertyValue {
+    	public override float PropertyValue {
     		get { 
-                return startingValue * BuildingManager.valueMultiplier; 
+                return (((startingValue + PropertyNeighborModifier) / 2) // Take average of property value in isolation and property value of neighbors
+                	* BuildingManager.valueMultiplier) // All property values increase over time
+	                .RoundToInterval(5000); // Round to the nearest $5000
             }
     	}
 

@@ -235,7 +235,7 @@ MonoBehaviour:
   startingValue: 100000
   ownedMaterial: {fileID: 2100000, guid: 778a4ff14781646e5afbf0c5a1da42a4, type: 2}
   unownedMaterial: {fileID: 2100000, guid: 38ff8b3000efd40f4be04297b90a930f, type: 2}
-  renovatingMaterial: {fileID: 2100000, guid: 93a73caaf862244acb1aebf39a266b81, type: 2}
+  renovatingMaterial: {fileID: 0}
   attention: {fileID: 6179505120416671579}
 --- !u!1 &7711863136909290090
 GameObject:
