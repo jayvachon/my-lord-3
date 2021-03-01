@@ -28,6 +28,7 @@ public class Grid : MB
     	float centerZ = length * lSpace / 2f;
 
     	bool createdPoliceStation = false;
+        bool createdCourt = false;
 
     	// Create buildings
     	for (int i = 0; i < width; i ++) {
@@ -37,7 +38,14 @@ public class Grid : MB
     			float x = i * wSpace - centerX;
     			float z = j * lSpace - centerZ;
 
-    			if (j == 2 && (i == 5 || i == 6)) {
+                if (j == 1 && (i == 2 || i == 3)) {
+                    if (!createdCourt) {
+                        Building b = GameObjectPool.Instantiate("Court", new Vector3(x + 0.75f, 0.5f, z)).GetComponent<Building>();
+                        cell.Init(b);
+                        createdCourt = true;
+                    }
+                }
+    			else if (j == 2 && (i == 5 || i == 6)) {
     				if (!createdPoliceStation) {
 	    				Building b = GameObjectPool.Instantiate("PoliceStation", new Vector3(x + 0.75f, 0.5f, z)).GetComponent<Building>();
 	    				cell.Init(b);
