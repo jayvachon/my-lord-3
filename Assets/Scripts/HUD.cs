@@ -6,9 +6,11 @@ using EventSystem;
 
 public class HUD : MBUI
 {
+    public BuildingManager buildingManager;
 	public Text purseText;
 	public Text buildingInfoText;
     public Text clockText;
+    public Text incomeText;
 
     public GameClock gameClock;
 
@@ -18,6 +20,7 @@ public class HUD : MBUI
         
     	purseText.GetComponent<Text>().text = "$" + Purse.wealth.ToDisplay();
         clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
+        incomeText.GetComponent<Text>().text = "Rental income: $" + buildingManager.GetRentalIncome();
 
         if (selectedApartment != null) {
             string buildingInfo = "$" + selectedApartment.PropertyValue.ToDisplay();
@@ -27,6 +30,9 @@ public class HUD : MBUI
                         "\n<S> Sell";
                     if (selectedApartment.NeedsRepair) {
                         buildingInfo += "\n<F> Fix";
+                    }
+                    if (selectedApartment.CanRaiseRent) {
+                        buildingInfo += "\n<U> Raise Rent";
                     }
                 } else {
                     if (!selectedApartment.Renovating) {

@@ -5,7 +5,6 @@ using EventSystem;
 
 public class Apartment : Building
 {
-        public float startingValue = 100000;
         public Material ownedMaterial;
         public Material unownedMaterial;
         public Material renovatingMaterial;
@@ -21,6 +20,8 @@ public class Apartment : Building
         public bool Selected { get; private set; }
         public bool NeedsRepair { get; private set; }
 
+        float startingValue = 100000;
+        float valueAtBuy = 0; // the value of the property when it was bought
     	public override float PropertyValue {
     		get { 
                 return (((startingValue + PropertyNeighborModifier) / 2) // Take average of property value in isolation and property value of neighbors
@@ -28,6 +29,18 @@ public class Apartment : Building
 	                .RoundToInterval(5000); // Round to the nearest $5000
             }
     	}
+
+        public float Rent {
+            get { return (valueAtBuy * 0.04f).RoundToInterval(1000); }
+        }
+
+        float NewRent {
+        	get { return (PropertyValue * 0.04f).RoundToInterval(1000); }
+        }
+
+        public bool CanRaiseRent {
+        	get { return NewRent >  Rent; }
+        }
 
         public float RenovationCost {
             get { return startingValue * 0.2f; }
@@ -42,10 +55,6 @@ public class Apartment : Building
 
         public bool HasTenants {
             get { return hasTenants; }
-        }
-
-        float Rent {
-            get { return startingValue * 0.04f; }
         }
 
         Vector3 startingScale;
@@ -93,6 +102,7 @@ public class Apartment : Building
                             Debug.Log("Leased to tenants");
                             tenantsPayingRent = true;
                             hasTenants = true;
+                            valueAtBuy = PropertyValue; // raise the rent automatically
                         }
                     }
 
@@ -116,15 +126,24 @@ public class Apartment : Building
                             attention.gameObject.SetActive(false);                       
                         }
                     }
+
+                    // Raise rent
+                    if (Input.GetKeyDown(KeyCode.U)) {
+                    	if (CanRaiseRent) {
+                    		valueAtBuy = PropertyValue;
+                    	}
+                    }
                 }
             }
         }
 
         void Buy() {
             Debug.Log("Bought for " + PropertyValue);
+            valueAtBuy = PropertyValue;
             owned = true;
             Purse.wealth -= PropertyValue;
             GetComponent<MeshRenderer>().material = ownedMaterial;
+            Events.instance.Raise(new BuyApartmentEvent(this));
         }
 
         void Sell() {
@@ -132,6 +151,7 @@ public class Apartment : Building
             owned = false;
             Purse.wealth += PropertyValue;
             GetComponent<MeshRenderer>().material = unownedMaterial;
+            Events.instance.Raise(new SellApartmentEvent(this));
         }
 
         void Evict() {
