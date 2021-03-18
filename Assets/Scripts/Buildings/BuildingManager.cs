@@ -6,6 +6,16 @@ using EventSystem;
 
 public class BuildingManager: MB
 {
+    private static BuildingManager instance;
+    public static BuildingManager Instance {
+        get {
+            if (instance == null) { 
+                instance = (BuildingManager)FindObjectOfType(typeof(BuildingManager));;
+            }
+            return instance;
+        }
+    }
+
     public static float valueMultiplier = 1;
     List<Apartment> portfolio = new List<Apartment>();
 
@@ -16,6 +26,10 @@ public class BuildingManager: MB
 
     public float GetRentalIncome() {
     	return portfolio.Sum(a => a.Rent);
+    }
+
+    public bool HasEvictionOrder() {
+        return portfolio.Any(a => a.EvictionOrder);
     }
 
     void OnBuyApartment(BuyApartmentEvent e) {

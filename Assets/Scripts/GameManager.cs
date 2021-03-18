@@ -5,6 +5,20 @@ using EventSystem;
 
 public class GameManager : MonoBehaviour
 {
+	private static GameManager instance;
+    public static GameManager Instance {
+        get {
+        	if (instance == null) { 
+        		instance = (GameManager)FindObjectOfType(typeof(GameManager));;
+        	}
+        	return instance;
+        }
+    }
+
+    public bool GlobalRentStrike {
+    	get { return true; }
+    }
+
 	void Awake() {
 		Events.instance.AddListener<NewMonthEvent>(OnNewMonthEvent);
 	}

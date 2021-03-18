@@ -15,6 +15,7 @@ public class HUD : MBUI
     public GameClock gameClock;
 
     Apartment selectedApartment = null;
+    bool courtSelected = false;
 
     void Update() {
         
@@ -29,7 +30,7 @@ public class HUD : MBUI
                     buildingInfo += "\n<E> Evict tenants" +
                         "\n<S> Sell";
                     if (selectedApartment.NeedsRepair) {
-                        buildingInfo += "\n<F> Fix";
+                        buildingInfo += "\n<F> Fix $100";
                     }
                     if (selectedApartment.CanRaiseRent) {
                         buildingInfo += "\n<U> Raise Rent";
@@ -46,11 +47,21 @@ public class HUD : MBUI
             }
             buildingInfoText.GetComponent<Text>().text = buildingInfo;
         }
+
+        if (courtSelected) {
+            string buildingInfo = "Laws:";
+            if (buildingManager.HasEvictionOrder()) {
+                buildingInfo += "\n<S> Settle evictions";
+            }
+            buildingInfoText.GetComponent<Text>().text = buildingInfo;
+        }
     }
 
     protected override void AddListeners() {
     	Events.instance.AddListener<SelectApartmentEvent>(OnSelectApartmentEvent);
     	Events.instance.AddListener<DeselectApartmentEvent>(OnDeselectApartmentEvent);
+        Events.instance.AddListener<SelectBuildingEvent>(OnSelectBuildingEvent);
+        Events.instance.AddListener<DeselectBuildingEvent>(OnDeselectBuildingEvent);
     }
 
     void OnSelectApartmentEvent(SelectApartmentEvent e) {
@@ -60,5 +71,16 @@ public class HUD : MBUI
     void OnDeselectApartmentEvent(DeselectApartmentEvent e) {
         selectedApartment = null;
     	buildingInfoText.GetComponent<Text>().text = "";
+    }
+
+    void OnSelectBuildingEvent(SelectBuildingEvent e) {
+        if (e.Building is Court) {
+            courtSelected = true;
+        }
+    }
+
+    void OnDeselectBuildingEvent(DeselectBuildingEvent e) {
+        courtSelected = false;
+        buildingInfoText.GetComponent<Text>().text = "";
     }
 }

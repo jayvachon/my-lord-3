@@ -17,7 +17,8 @@ public class Apartment : Building
         int currentMonth = 1;
 
         public bool EvictionOrder { get; private set; }
-        public bool Selected { get; private set; }
+        public bool RaiseRentOrder { get; private set; }
+        // public bool Selected { get; private set; }
         public bool NeedsRepair { get; private set; }
 
         float startingValue = 100000;
@@ -39,7 +40,7 @@ public class Apartment : Building
         }
 
         public bool CanRaiseRent {
-        	get { return NewRent >  Rent; }
+        	get { return !RaiseRentOrder && NewRent >  Rent; }
         }
 
         public float RenovationCost {
@@ -120,7 +121,6 @@ public class Apartment : Building
                     // Fix
                     if (Input.GetKeyDown(KeyCode.F)) {
                         if (NeedsRepair && Purse.wealth >= 100) {
-                            Debug.Log("Fix");
                             Purse.wealth -= 100;
                             NeedsRepair = false;
                             attention.gameObject.SetActive(false);                       
@@ -130,7 +130,12 @@ public class Apartment : Building
                     // Raise rent
                     if (Input.GetKeyDown(KeyCode.U)) {
                     	if (CanRaiseRent) {
-                    		valueAtBuy = PropertyValue;
+                            if (Random.value >= 0.5f) {
+                                Debug.Log("Tenants refuse to pay rent increase");
+                                RaiseRentOrder = true;
+                            } else {
+                        		valueAtBuy = PropertyValue;
+                            }
                     	}
                     }
                 }
@@ -155,7 +160,7 @@ public class Apartment : Building
         }
 
         void Evict() {
-            if (EvictionOrder || Random.value >= 0.5f) {
+            if (GameManager.Instance.GlobalRentStrike || EvictionOrder || Random.value >= 0.5f) {
                 Debug.Log("Tenants refuse to leave");
                 tenantsPayingRent = false;
                 EvictionOrder = true;
@@ -166,47 +171,18 @@ public class Apartment : Building
 
         void CompleteEviction() {
             Debug.Log("Tenants evicted");
+            EvictionOrder = false;
             hasTenants = false;
             GameObjectPool.Instantiate("UnhousedPerson", new Vector3(0f, 0.26f, -1f));
         }
 
-        #region Clickable
-        public override void ClickThis() {
-            Toggle();
-        }
-
-        public override void ClickOther() {
-            if (Selected) {
-                Deselect();
-            }
-        }
-
-        void Toggle() {
-            if (Selected) {
-                Deselect();
-            } else {
-                Select();
-            }
-        }
-
-        void Select() {
-
-            // To avoid race condition between de/selecting, always select last
-            StartCoroutine(CoSelect());
-        }
-        IEnumerator CoSelect() {
-            yield return new WaitForEndOfFrame();
-            Events.instance.Raise(new SelectApartmentEvent(this));
-            Selected = true;
+        protected override void OnSelect() {
             transform.localScale = new Vector3(startingScale.x * 1.1f, startingScale.y * 1.1f, startingScale.z * 1.1f);
         }
 
-        void Deselect() {
-            Events.instance.Raise(new DeselectApartmentEvent());
-            Selected = false;
+        protected override void OnDeselect() {
             transform.localScale = startingScale;
         }
-        #endregion
 
         #region IClickable
         protected override void AddListeners() {
@@ -240,10 +216,12 @@ public class Apartment : Building
         }
 
         void OnCallPoliceEvent(CallPoliceEvent e) {
-            if (EvictionOrder && Random.value >= 0.5f) {
-                CompleteEviction();
-            } else {
-                Debug.Log("Tenants have a lawyer and refuse to leave");
+            if (EvictionOrder) {
+                if (Random.value >= 0.5f) {
+                    CompleteEviction();
+                } else {
+                    Debug.Log("Tenants have a lawyer and refuse to leave");
+                }
             }
         }
 

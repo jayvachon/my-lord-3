@@ -5,7 +5,13 @@ using EventSystem;
 
 public class Court : Building
 {
-    public override void ClickThis() {
-    	Events.instance.Raise(new CourtCaseEvent());
+    void Update() {
+    	if (Selected) {
+    		if (Input.GetKeyDown(KeyCode.S)) {
+    			if (BuildingManager.Instance.HasEvictionOrder()) {
+    				Events.instance.Raise(new CourtCaseEvent());
+    			}
+    		}
+    	}
     }
 }
