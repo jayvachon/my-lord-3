@@ -5,6 +5,10 @@ using EventSystem;
 
 public class Court : Building
 {
+	string[] laws = {
+		"Just Cause"
+	};
+
     void Update() {
     	if (Selected) {
     		if (Input.GetKeyDown(KeyCode.S)) {

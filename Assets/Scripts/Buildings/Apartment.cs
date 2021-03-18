@@ -18,7 +18,6 @@ public class Apartment : Building
 
         public bool EvictionOrder { get; private set; }
         public bool RaiseRentOrder { get; private set; }
-        // public bool Selected { get; private set; }
         public bool NeedsRepair { get; private set; }
 
         float startingValue = 100000;
@@ -33,6 +32,10 @@ public class Apartment : Building
 
         public float Rent {
             get { return (valueAtBuy * 0.04f).RoundToInterval(1000); }
+        }
+
+        public bool HasRent {
+            get { return HasTenants && tenantsPayingRent; }
         }
 
         float NewRent {

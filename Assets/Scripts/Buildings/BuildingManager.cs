@@ -25,7 +25,7 @@ public class BuildingManager: MB
     }
 
     public float GetRentalIncome() {
-    	return portfolio.Sum(a => a.Rent);
+    	return portfolio.Sum(a => { if (a.HasRent) { return a.Rent; } else { return 0; } });
     }
 
     public bool HasEvictionOrder() {
