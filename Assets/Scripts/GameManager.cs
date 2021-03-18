@@ -15,4 +15,11 @@ public class GameManager : MonoBehaviour
     		Debug.Log(BuildingManager.valueMultiplier);
 		}
 	}
+
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.Q)) {
+			Debug.Log("Game Manager added $100,000 to purse");
+			Purse.wealth += 100000;
+		}
+	}
 }

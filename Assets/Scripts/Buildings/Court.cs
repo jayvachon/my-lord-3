@@ -6,6 +6,6 @@ using EventSystem;
 public class Court : Building
 {
     public override void ClickThis() {
-    	Debug.Log ("Court");
+    	Events.instance.Raise(new CourtCaseEvent());
     }
 }

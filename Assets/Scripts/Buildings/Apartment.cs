@@ -155,7 +155,7 @@ public class Apartment : Building
         }
 
         void Evict() {
-            if (Random.value >= 0.5f) {
+            if (EvictionOrder || Random.value >= 0.5f) {
                 Debug.Log("Tenants refuse to leave");
                 tenantsPayingRent = false;
                 EvictionOrder = true;
@@ -213,6 +213,7 @@ public class Apartment : Building
             base.AddListeners();
             Events.instance.AddListener<NewMonthEvent>(OnNewMonthEvent);
             Events.instance.AddListener<CallPoliceEvent>(OnCallPoliceEvent);
+            Events.instance.AddListener<CourtCaseEvent>(OnCourtCaseEvent);
         }
 
         void OnNewMonthEvent(NewMonthEvent e) {
@@ -239,7 +240,18 @@ public class Apartment : Building
         }
 
         void OnCallPoliceEvent(CallPoliceEvent e) {
+            if (EvictionOrder && Random.value >= 0.5f) {
+                CompleteEviction();
+            } else {
+                Debug.Log("Tenants have a lawyer and refuse to leave");
+            }
+        }
+
+        void OnCourtCaseEvent(CourtCaseEvent e) {
             if (EvictionOrder) {
+                float settlement = Rent * 4f;
+                Purse.wealth -= settlement;
+                Debug.Log("Case settled for $" + settlement.ToString());
                 CompleteEviction();
             }
         }
