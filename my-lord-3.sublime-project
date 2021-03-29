@@ -4,7 +4,7 @@
 		{
 			"path": "./Assets/Scripts",
 			"folder_exclude_patterns": [".vs", "obj", "ProjectSettings", "Temp", "Library", "Packages", "Assets/Scenes"],
-			"file_exclude_patterns": ["*.csproj", "*.sln"]
+			"file_exclude_patterns": ["*.csproj", "*.sln", "*.meta"]
 		}
 	]
 }

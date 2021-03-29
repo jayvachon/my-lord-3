@@ -55,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -182,6 +183,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -228,14 +230,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7268516361894008225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: da49e466a5bf242bcbfb232305515b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingValue: 100000
   ownedMaterial: {fileID: 2100000, guid: 778a4ff14781646e5afbf0c5a1da42a4, type: 2}
   unownedMaterial: {fileID: 2100000, guid: 38ff8b3000efd40f4be04297b90a930f, type: 2}
-  renovatingMaterial: {fileID: 0}
+  renovatingMaterial: {fileID: 2100000, guid: 93a73caaf862244acb1aebf39a266b81, type: 2}
   attention: {fileID: 6179505120416671579}
 --- !u!1 &7711863136909290090
 GameObject:
@@ -292,6 +292,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

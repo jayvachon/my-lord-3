@@ -40,12 +40,12 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Scripts/Building.cs",
+			"file": "my-lord-3.sublime-project",
 			"settings":
 			{
-				"buffer_size": 931,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
+				"buffer_size": 234,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -119,8 +119,14 @@
 		"side_bar_visible": true,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/home/jayvachon/Developer/my-lord-3/Assets/Scripts"
+	],
 	"file_history":
 	[
+		"/home/bokken/buildslave/unity/build/Runtime/Export/Scripting/StackTrace.cs",
+		"/home/jayvachon/Developer/my-lord-3/Assets/Scripts/Building.cs",
 		"/Users/jay/node/cia-airtable/views/processAttachments.ejs",
 		"/Users/jay/node/cia-airtable/.gitignore",
 		"/Users/jay/node/cia-airtable/constants.js",
@@ -212,7 +218,7 @@
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -377,26 +383,24 @@
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Scripts/Building.cs",
+					"file": "my-lord-3.sublime-project",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 931,
+						"buffer_size": 234,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								222,
+								222
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/zzz A File Icon zzz/aliases/JSON (Sublime).sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -410,7 +414,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -451,7 +455,7 @@
 	"project": "my-lord-3.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -748,7 +752,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 241.0,
 	"status_bar_visible": true,
 	"template_settings":

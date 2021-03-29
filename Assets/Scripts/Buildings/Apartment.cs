@@ -15,6 +15,7 @@ public class Apartment : Building
         bool tenantsPayingRent = true;
 
         int currentMonth = 1;
+        int ignoredRepairs = 0;
 
         public bool EvictionOrder { get; private set; }
         public bool RaiseRentOrder { get; private set; }
@@ -59,6 +60,10 @@ public class Apartment : Building
 
         public bool HasTenants {
             get { return hasTenants; }
+        }
+
+        public int RepairCost {
+        	get { return (ignoredRepairs + 1) * 100; }
         }
 
         Vector3 startingScale;
@@ -123,11 +128,20 @@ public class Apartment : Building
 
                     // Fix
                     if (Input.GetKeyDown(KeyCode.F)) {
-                        if (NeedsRepair && Purse.wealth >= 100) {
-                            Purse.wealth -= 100;
+                        if (NeedsRepair && Purse.wealth >= RepairCost) {
+                            Purse.wealth -= RepairCost;
                             NeedsRepair = false;
                             attention.gameObject.SetActive(false);                       
                         }
+                    }
+
+                    // Ignore repair
+                    if (Input.GetKeyDown(KeyCode.C)) {
+                    	if (NeedsRepair) {
+                    		NeedsRepair = false;
+                    		attention.gameObject.SetActive(false);
+                    		ignoredRepairs ++;
+                    	}
                     }
 
                     // Raise rent
@@ -213,6 +227,7 @@ public class Apartment : Building
             if (Renovating && (currentMonth - renovationStart > 6)) {
                 Renovating = false;
                 startingValue *= 1.5f;
+                ignoredRepairs = 0;
                 Debug.Log("Renovated! Value increased.");
                 GetComponent<MeshRenderer>().material = ownedMaterial;
             }

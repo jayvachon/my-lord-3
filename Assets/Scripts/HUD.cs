@@ -30,7 +30,8 @@ public class HUD : MBUI
                     buildingInfo += "\n<E> Evict tenants" +
                         "\n<S> Sell";
                     if (selectedApartment.NeedsRepair) {
-                        buildingInfo += "\n<F> Fix $100";
+                        buildingInfo += "\n<F> Fix ($" + selectedApartment.RepairCost + ")";
+                        buildingInfo += "\n<C> Ignore repair ($0)";
                     }
                     if (selectedApartment.CanRaiseRent) {
                         buildingInfo += "\n<U> Raise Rent";
