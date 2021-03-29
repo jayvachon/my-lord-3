@@ -135,4 +135,31 @@ public class Grid : MB
     	building = null;
     	return false;
     }
+
+    public Building GetRandomBuilding() {
+        bool hasBuilding = false;
+        Building randomBuilding = new Building();
+        while (!hasBuilding) {
+            int x = Random.Range(0, width);
+            int z = Random.Range(0, length);
+            if (TryGetBuildingAtCell(x, z, out randomBuilding)) {
+                hasBuilding = true;
+                return randomBuilding;
+            }
+        }
+        return randomBuilding;
+    }
+
+    public Apartment GetRandomApartment() {
+        bool hasApartment = false;
+        Apartment randomApartment = new Apartment();
+        while (!hasApartment) {
+            Building b = GetRandomBuilding();
+            if (b is Apartment) {
+                randomApartment = b as Apartment;
+                hasApartment = true;
+            }
+        }
+        return randomApartment;
+    }
 }

@@ -9,10 +9,12 @@ public class Apartment : Building
         public Material unownedMaterial;
         public Material renovatingMaterial;
         public GameObject attention;
+        public GameObject tenantsUnionIndicator;
 
     	bool owned = false;
         bool hasTenants = true;
         bool tenantsPayingRent = true;
+        bool isTenantsUnionHeadquarters = false;
 
         int currentMonth = 1;
         int ignoredRepairs = 0;
@@ -71,6 +73,7 @@ public class Apartment : Building
         void Start() {
             startingScale = transform.localScale;
             attention.gameObject.SetActive(false);
+            tenantsUnionIndicator.gameObject.SetActive(false);
         }
 
         public void Init(BuildingConfig b) {
@@ -159,6 +162,12 @@ public class Apartment : Building
             }
         }
 
+        public void MakeTenantsUnionHeadquarters() {
+        	isTenantsUnionHeadquarters = true;
+        	tenantsUnionIndicator.gameObject.SetActive(true);
+
+        }
+
         void Buy() {
             Debug.Log("Bought for " + PropertyValue);
             valueAtBuy = PropertyValue;
@@ -191,6 +200,7 @@ public class Apartment : Building
             EvictionOrder = false;
             hasTenants = false;
             GameObjectPool.Instantiate("UnhousedPerson", new Vector3(0f, 0.26f, -1f));
+            Events.instance.Raise(new CompleteEvictionEvent());
         }
 
         protected override void OnSelect() {
@@ -217,7 +227,7 @@ public class Apartment : Building
                 Purse.wealth += Rent;
 
                 // there's a chance a repair is needed
-                if (Random.value >= 0.8f) {
+                if (Random.value >= 0.9f) {
                     NeedsRepair = true;
                     attention.gameObject.SetActive(true);
                 }

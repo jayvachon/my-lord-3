@@ -17,11 +17,14 @@ public class BuildingManager: MB
     }
 
     public static float valueMultiplier = 1;
+    public Grid grid;
     List<Apartment> portfolio = new List<Apartment>();
+    bool hasTenantsUnion = false;
 
     void Awake() {
     	Events.instance.AddListener<BuyApartmentEvent>(OnBuyApartment);
     	Events.instance.AddListener<SellApartmentEvent>(OnSellApartment);
+        Events.instance.AddListener<CompleteEvictionEvent>(OnCompleteEvictionEvent);
     }
 
     public float GetRentalIncome() {
@@ -38,5 +41,13 @@ public class BuildingManager: MB
 
     void OnSellApartment(SellApartmentEvent e) {
     	portfolio.Remove(e.Apartment);
+    }
+
+    void OnCompleteEvictionEvent(CompleteEvictionEvent e) {
+        if (!hasTenantsUnion) {
+            Apartment a = grid.GetRandomApartment();
+            a.MakeTenantsUnionHeadquarters();
+        }
+        hasTenantsUnion = true;
     }
 }

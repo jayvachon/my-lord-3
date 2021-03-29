@@ -21,7 +21,7 @@ public class HUD : MBUI
         
     	purseText.GetComponent<Text>().text = "$" + Purse.wealth.ToDisplay();
         clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
-        incomeText.GetComponent<Text>().text = "Rental income: $" + buildingManager.GetRentalIncome();
+        incomeText.GetComponent<Text>().text = "Rental income: $" + buildingManager.GetRentalIncome().ToDisplay();
 
         if (selectedApartment != null) {
             string buildingInfo = "$" + selectedApartment.PropertyValue.ToDisplay();

@@ -6,7 +6,10 @@ using EventSystem;
 public class Court : Building
 {
 	string[] laws = {
-		"Just Cause"
+        "Safe Conditions",
+		"Just Cause",
+        "Rent Stabilization",
+        "Rent Control"
 	};
 
     void Update() {
