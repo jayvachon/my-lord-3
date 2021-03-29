@@ -38,7 +38,10 @@ public class HUD : MBUI
                     }
                 } else {
                     if (!selectedApartment.Renovating) {
-                        buildingInfo += "\n<R> Renovate for $" + selectedApartment.RenovationCost.ToDisplay() +
+                        if (selectedApartment.CanRenovate) {
+                            buildingInfo += "\n<R> Renovate for $" + selectedApartment.RenovationCost.ToDisplay();
+                        }
+                        buildingInfo +=
                             "\n<L> Lease" +
                             "\n<S> Sell";
                     }

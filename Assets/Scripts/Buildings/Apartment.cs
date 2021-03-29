@@ -15,6 +15,7 @@ public class Apartment : Building
         bool hasTenants = true;
         bool tenantsPayingRent = true;
         bool isTenantsUnionHeadquarters = false;
+        bool renovated = false; // Only one renovation is permitted
 
         int currentMonth = 1;
         int ignoredRepairs = 0;
@@ -49,10 +50,12 @@ public class Apartment : Building
         	get { return !RaiseRentOrder && NewRent >  Rent; }
         }
 
+        public bool CanRenovate {
+        	get { return !renovated; }
+        }
         public float RenovationCost {
             get { return startingValue * 0.2f; }
         }
-
         int renovationStart = 1;
         public bool Renovating { get; private set; }
 
@@ -120,7 +123,7 @@ public class Apartment : Building
 
                     // Renovate
                     if (Input.GetKeyDown(KeyCode.R)) {
-                        if (!hasTenants && Purse.wealth >= RenovationCost) {
+                        if (!renovated && !hasTenants && Purse.wealth >= RenovationCost) {
                             Debug.Log("Renovating");
                             Purse.wealth -= RenovationCost;
                             renovationStart = currentMonth;
@@ -180,6 +183,8 @@ public class Apartment : Building
         void Sell() {
             Debug.Log("Sold for " + PropertyValue);
             owned = false;
+            NeedsRepair = false;
+            attention.gameObject.SetActive(false);
             Purse.wealth += PropertyValue;
             GetComponent<MeshRenderer>().material = unownedMaterial;
             Events.instance.Raise(new SellApartmentEvent(this));
@@ -227,7 +232,7 @@ public class Apartment : Building
                 Purse.wealth += Rent;
 
                 // there's a chance a repair is needed
-                if (Random.value >= 0.9f) {
+                if (Random.value >= 0.95f) {
                     NeedsRepair = true;
                     attention.gameObject.SetActive(true);
                 }
@@ -238,6 +243,7 @@ public class Apartment : Building
                 Renovating = false;
                 startingValue *= 1.5f;
                 ignoredRepairs = 0;
+                renovated = true;
                 Debug.Log("Renovated! Value increased.");
                 GetComponent<MeshRenderer>().material = ownedMaterial;
             }

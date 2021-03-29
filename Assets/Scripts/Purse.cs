@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class Purse
 {
-    public static float wealth = 200000;
+    public static float wealth = 500000;
     
 }
