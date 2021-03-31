@@ -3,12 +3,8 @@ using System.Collections;
 
 namespace EventSystem {
 
-	public class SellApartmentEvent : GameEvent {
+	public class SellApartmentEvent : ApartmentEvent {
 
-		public readonly Apartment Apartment;
-
-		public SellApartmentEvent (Apartment apartment) {
-			Apartment = apartment;
-		}
+		public SellApartmentEvent (Apartment apartment) : base(apartment) {}
 	}
 }

@@ -114,21 +114,21 @@ public class Apartment : Building
                     // Lease
                     if (Input.GetKeyDown(KeyCode.L)) {
                         if (!hasTenants) {
-                            Debug.Log("Leased to tenants");
                             tenantsPayingRent = true;
                             hasTenants = true;
                             valueAtBuy = PropertyValue; // raise the rent automatically
+                            Events.instance.Raise(new LeaseApartmentEvent(this));
                         }
                     }
 
                     // Renovate
                     if (Input.GetKeyDown(KeyCode.R)) {
                         if (!renovated && !hasTenants && Purse.wealth >= RenovationCost) {
-                            Debug.Log("Renovating");
                             Purse.wealth -= RenovationCost;
                             renovationStart = currentMonth;
                             Renovating = true;
                             GetComponent<MeshRenderer>().material = renovatingMaterial;
+                            Events.instance.Raise(new StartRenovationEvent(this));
                         }
                     }
 
@@ -154,8 +154,8 @@ public class Apartment : Building
                     if (Input.GetKeyDown(KeyCode.U)) {
                     	if (CanRaiseRent) {
                             if (Random.value >= 0.5f) {
-                                Debug.Log("Tenants refuse to pay rent increase");
                                 RaiseRentOrder = true;
+                                Events.instance.Raise(new RefuseRentIncreaseEvent(this));
                             } else {
                         		valueAtBuy = PropertyValue;
                             }
@@ -172,7 +172,6 @@ public class Apartment : Building
         }
 
         void Buy() {
-            Debug.Log("Bought for " + PropertyValue);
             valueAtBuy = PropertyValue;
             owned = true;
             Purse.wealth -= PropertyValue;
@@ -181,7 +180,6 @@ public class Apartment : Building
         }
 
         void Sell() {
-            Debug.Log("Sold for " + PropertyValue);
             owned = false;
             NeedsRepair = false;
             attention.gameObject.SetActive(false);
@@ -192,16 +190,15 @@ public class Apartment : Building
 
         void Evict() {
             if (GameManager.Instance.GlobalRentStrike || EvictionOrder || Random.value >= 0.5f) {
-                Debug.Log("Tenants refuse to leave");
                 tenantsPayingRent = false;
                 EvictionOrder = true;
+                Events.instance.Raise(new RefuseEvictionEvent(this));
             } else {
                 CompleteEviction();
             }
         }
 
         void CompleteEviction() {
-            Debug.Log("Tenants evicted");
             EvictionOrder = false;
             hasTenants = false;
             GameObjectPool.Instantiate("UnhousedPerson", new Vector3(0f, 0.26f, -1f));
@@ -244,8 +241,8 @@ public class Apartment : Building
                 startingValue *= 1.5f;
                 ignoredRepairs = 0;
                 renovated = true;
-                Debug.Log("Renovated! Value increased.");
                 GetComponent<MeshRenderer>().material = ownedMaterial;
+                Events.instance.Raise(new EndRenovationEvent(this));
             }
         }
 
@@ -254,7 +251,7 @@ public class Apartment : Building
                 if (Random.value >= 0.5f) {
                     CompleteEviction();
                 } else {
-                    Debug.Log("Tenants have a lawyer and refuse to leave");
+                    Events.instance.Raise(new RefuseEvictionEvent(this));
                 }
             }
         }

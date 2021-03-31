@@ -155,26 +155,6 @@ public static class Co {
 		RepeatAscending (0f, rate, max, onInvoke, onEnd);
 	}
 
-	/// <summary>
-	/// Makes a www request and sends a response callback
-	/// </summary>
-	/// <param name="address">The URL to request</param>
-	/// <param name="onResponse">The callback when a response has been received</param>
-	public static void WWW (string address, Action<WWW> onResponse) {
-		CoMb.Instance.StartCoroutine (CoWWW (address, onResponse));
-	}
-
-	/// <summary>
-	/// Makes a www request and sends a response callback if the response happens before timing out
-	/// </summary>
-	/// <param name="address">The URL to request</param>
-	/// <param name="timeout">How long to wait before timing out</param>
-	/// <param name="onResponse">The callback when a response has been received</param>
-	/// <param name="onTimeout">The callback when the request times out</param>
-	public static void WWW (string address, float timeout, Action<WWW> onResponse, Action<string> onTimeout) {
-		CoMb.Instance.StartCoroutine (CoWWW (address, timeout, onResponse, onTimeout));
-	}
-
 	static IEnumerator CoWaitForSeconds (float seconds, Action onEnd) {
 		float e = 0f;
 		while (e < seconds) {
@@ -217,28 +197,6 @@ public static class Co {
 		}
 		if (onEnd != null)
 			onEnd ();
-	}
-
-	static IEnumerator CoWWW (string address, Action<WWW> onResponse) {
-		WWW www = new WWW (address);
-		yield return www;
-		onResponse (www);
-	}
-
-	static IEnumerator CoWWW (string address, float timeout, Action<WWW> onResponse, Action<string> onTimeout) {
-
-		float e = 0f;
-		WWW www = new WWW (address);
-
-		while (e < timeout && !www.isDone) {
-			e += Time.deltaTime;
-			yield return www;
-		}
-
-		if (e >= timeout || www.error != null)
-			onTimeout (www.error);
-		else
-			onResponse (www);
 	}
 }
 
