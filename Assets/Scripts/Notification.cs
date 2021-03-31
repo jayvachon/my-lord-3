@@ -14,6 +14,9 @@ public class Notification : MB
 
 	void Start() {
 		Hide();
+	}
+
+	protected override void AddListeners() {
 		Events.instance.AddListener<BuyApartmentEvent>(OnBuyApartmentEvent);
 		Events.instance.AddListener<SellApartmentEvent>(OnSellApartmentEvent);
 		Events.instance.AddListener<LeaseApartmentEvent>(OnLeaseApartmentEvent);

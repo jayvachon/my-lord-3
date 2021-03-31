@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool GlobalRentStrike {
-    	get { return true; }
+    	get { return false; }
     }
 
 	void Awake() {

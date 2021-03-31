@@ -189,7 +189,7 @@ public class Apartment : Building
         }
 
         void Evict() {
-            if (GameManager.Instance.GlobalRentStrike || EvictionOrder || Random.value >= 0.5f) {
+            if (GameManager.Instance.GlobalRentStrike || EvictionOrder || Random.value < TenantUnion.Instance.ChanceOfEvictionRefusal) {
                 tenantsPayingRent = false;
                 EvictionOrder = true;
                 Events.instance.Raise(new RefuseEvictionEvent(this));
