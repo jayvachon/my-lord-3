@@ -26,6 +26,7 @@ public class Notification : MB
 		Events.instance.AddListener<CompleteEvictionEvent>(OnCompleteEvictionEvent);
 		Events.instance.AddListener<RefuseRentIncreaseEvent>(OnRefuseRentIncreaseEvent);
 		Events.instance.AddListener<RefuseEvictionEvent>(OnRefuseEvictionEvent);
+        Events.instance.AddListener<RentStrikeEvent>(OnRentStrikeEvent);
 
 		Events.instance.AddListener<CourtCaseEvent>(OnCourtCaseEvent);
 	}
@@ -71,6 +72,10 @@ public class Notification : MB
 
     void OnRefuseEvictionEvent(RefuseEvictionEvent e) {
     	Show("Tenants refuse to leave!", attention);
+    }
+
+    void OnRentStrikeEvent(RentStrikeEvent e) {
+        Show("Tenants refuse to pay rent until apartment is fixed!", attention);
     }
 
     void OnCourtCaseEvent(CourtCaseEvent e) {

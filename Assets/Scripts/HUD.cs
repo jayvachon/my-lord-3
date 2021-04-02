@@ -31,7 +31,7 @@ public class HUD : MBUI
                         "\n<S> Sell";
                     if (selectedApartment.NeedsRepair) {
                         buildingInfo += "\n<F> Fix ($" + selectedApartment.RepairCost + ")";
-                        buildingInfo += "\n<C> Ignore repair ($0)";
+                        // buildingInfo += "\n<C> Ignore repair ($0)";
                     }
                     if (selectedApartment.CanRaiseRent) {
                         buildingInfo += "\n<U> Raise Rent";

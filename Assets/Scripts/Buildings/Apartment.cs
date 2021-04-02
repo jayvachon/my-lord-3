@@ -10,6 +10,7 @@ public class Apartment : Building
         public Material renovatingMaterial;
         public GameObject attention;
         public GameObject tenantsUnionIndicator;
+        public GameObject xIndicator;
 
     	bool owned = false;
         bool hasTenants = true;
@@ -19,6 +20,7 @@ public class Apartment : Building
 
         int currentMonth = 1;
         int ignoredRepairs = 0;
+        int monthsRepairNeeded = 0;
 
         public bool EvictionOrder { get; private set; }
         public bool RaiseRentOrder { get; private set; }
@@ -35,7 +37,7 @@ public class Apartment : Building
     	}
 
         public float Rent {
-            get { return (valueAtBuy * 0.04f).RoundToInterval(1000); }
+            get { return (valueAtBuy * 0.01f).RoundToInterval(500); }
         }
 
         public bool HasRent {
@@ -43,7 +45,7 @@ public class Apartment : Building
         }
 
         float NewRent {
-        	get { return (PropertyValue * 0.04f).RoundToInterval(1000); }
+        	get { return (PropertyValue * 0.01f).RoundToInterval(500); }
         }
 
         public bool CanRaiseRent {
@@ -67,8 +69,9 @@ public class Apartment : Building
             get { return hasTenants; }
         }
 
+        int repairCost = 1000;
         public int RepairCost {
-        	get { return (ignoredRepairs + 1) * 100; }
+        	get { return repairCost; }
         }
 
         Vector3 startingScale;
@@ -77,6 +80,7 @@ public class Apartment : Building
             startingScale = transform.localScale;
             attention.gameObject.SetActive(false);
             tenantsUnionIndicator.gameObject.SetActive(false);
+            xIndicator.gameObject.SetActive(false);
         }
 
         public void Init(BuildingConfig b) {
@@ -114,7 +118,7 @@ public class Apartment : Building
                     // Lease
                     if (Input.GetKeyDown(KeyCode.L)) {
                         if (!hasTenants) {
-                            tenantsPayingRent = true;
+                            StartRent();
                             hasTenants = true;
                             valueAtBuy = PropertyValue; // raise the rent automatically
                             Events.instance.Raise(new LeaseApartmentEvent(this));
@@ -127,6 +131,8 @@ public class Apartment : Building
                             Purse.wealth -= RenovationCost;
                             renovationStart = currentMonth;
                             Renovating = true;
+                            NeedsRepair = false;
+                            attention.gameObject.SetActive(false);
                             GetComponent<MeshRenderer>().material = renovatingMaterial;
                             Events.instance.Raise(new StartRenovationEvent(this));
                         }
@@ -137,18 +143,20 @@ public class Apartment : Building
                         if (NeedsRepair && Purse.wealth >= RepairCost) {
                             Purse.wealth -= RepairCost;
                             NeedsRepair = false;
-                            attention.gameObject.SetActive(false);                       
+                            monthsRepairNeeded = 0;
+                            attention.gameObject.SetActive(false);
+                            StartRent();               
                         }
                     }
 
                     // Ignore repair
-                    if (Input.GetKeyDown(KeyCode.C)) {
+                    /*if (Input.GetKeyDown(KeyCode.C)) {
                     	if (NeedsRepair) {
                     		NeedsRepair = false;
                     		attention.gameObject.SetActive(false);
                     		ignoredRepairs ++;
                     	}
-                    }
+                    }*/
 
                     // Raise rent
                     if (Input.GetKeyDown(KeyCode.U)) {
@@ -182,6 +190,7 @@ public class Apartment : Building
         void Sell() {
             owned = false;
             NeedsRepair = false;
+            monthsRepairNeeded = 0;
             attention.gameObject.SetActive(false);
             Purse.wealth += PropertyValue;
             GetComponent<MeshRenderer>().material = unownedMaterial;
@@ -189,8 +198,10 @@ public class Apartment : Building
         }
 
         void Evict() {
+            
+            StopRent();
+
             if (GameManager.Instance.GlobalRentStrike || EvictionOrder || Random.value < TenantUnion.Instance.ChanceOfEvictionRefusal) {
-                tenantsPayingRent = false;
                 EvictionOrder = true;
                 Events.instance.Raise(new RefuseEvictionEvent(this));
             } else {
@@ -203,6 +214,17 @@ public class Apartment : Building
             hasTenants = false;
             GameObjectPool.Instantiate("UnhousedPerson", new Vector3(0f, 0.26f, -1f));
             Events.instance.Raise(new CompleteEvictionEvent());
+        }
+
+        void StopRent() {
+        	tenantsPayingRent = false;
+        	xIndicator.gameObject.SetActive(true);
+        	attention.gameObject.SetActive(false);
+        }
+
+        void StartRent() {
+        	tenantsPayingRent = true;
+        	xIndicator.gameObject.SetActive(false);
         }
 
         protected override void OnSelect() {
@@ -223,14 +245,28 @@ public class Apartment : Building
 
         void OnNewMonthEvent(NewMonthEvent e) {
             currentMonth = e.Month;
+
+            if (NeedsRepair) {
+            	monthsRepairNeeded ++;
+            	if (tenantsPayingRent) {
+
+            		// The chances that tenants will stop paying rent until the apartment is fixed go up each month
+	            	if (Random.value < ((float)monthsRepairNeeded / 36f)) {
+	            		StopRent();
+	            		Events.instance.Raise(new RentStrikeEvent(this));
+	            	}
+            	}
+            }
+
             if (owned && hasTenants && tenantsPayingRent) {
                 
                 // collect rent
                 Purse.wealth += Rent;
 
                 // there's a chance a repair is needed
-                if (Random.value >= 0.95f) {
+                if (!NeedsRepair && Random.value >= 0.95f) {
                     NeedsRepair = true;
+                    repairCost = (int)((Random.value * 10000).RoundToInterval(500));
                     attention.gameObject.SetActive(true);
                 }
             }
