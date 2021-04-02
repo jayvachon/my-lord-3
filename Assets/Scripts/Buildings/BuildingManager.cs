@@ -27,6 +27,11 @@ public class BuildingManager: MB
         Events.instance.AddListener<CompleteEvictionEvent>(OnCompleteEvictionEvent);
     }
 
+    void Start() {
+        Apartment a = grid.GetHighestValueApartment();
+        a.SetAsHighestValue();
+    }
+
     public float GetRentalIncome() {
     	return portfolio.Sum(a => { if (a.HasRent) { return a.Rent; } else { return 0; } });
     }

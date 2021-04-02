@@ -19,12 +19,12 @@ public class HUD : MBUI
 
     void Update() {
         
-    	purseText.GetComponent<Text>().text = "$" + Purse.wealth.ToDisplay();
+    	purseText.GetComponent<Text>().text = "Wealth: $" + Purse.wealth.ToDisplay();
         clockText.GetComponent<Text>().text = "Month " + gameClock.Month.ToString();
         incomeText.GetComponent<Text>().text = "Rental income: $" + buildingManager.GetRentalIncome().ToDisplay();
 
         if (selectedApartment != null) {
-            string buildingInfo = "$" + selectedApartment.PropertyValue.ToDisplay();
+            string buildingInfo = "Property Value: $" + selectedApartment.PropertyValue.ToDisplay();
             if (selectedApartment.Owned) {
                 if (selectedApartment.HasTenants) {
                     buildingInfo += "\n<E> Evict tenants" +
@@ -35,6 +35,9 @@ public class HUD : MBUI
                     }
                     if (selectedApartment.CanRaiseRent) {
                         buildingInfo += "\n<U> Raise Rent";
+                    }
+                    if (!selectedApartment.Renovating && selectedApartment.CanRenovate) {
+                        buildingInfo += "\nEvict tenants to renovate for $" + selectedApartment.RenovationCost.ToDisplay();
                     }
                 } else {
                     if (!selectedApartment.Renovating) {

@@ -11,6 +11,7 @@ public class Apartment : Building
         public GameObject attention;
         public GameObject tenantsUnionIndicator;
         public GameObject xIndicator;
+        public GameObject crown;
 
     	bool owned = false;
         bool hasTenants = true;
@@ -81,6 +82,7 @@ public class Apartment : Building
             attention.gameObject.SetActive(false);
             tenantsUnionIndicator.gameObject.SetActive(false);
             xIndicator.gameObject.SetActive(false);
+            crown.gameObject.SetActive(false);
         }
 
         public void Init(BuildingConfig b) {
@@ -88,6 +90,12 @@ public class Apartment : Building
             transform.position = new Vector3(transform.position.x, b.height / 2f, transform.position.z);
             startingScale = transform.localScale;
             startingValue = b.value;
+        }
+
+        public void SetAsHighestValue() {
+        	Co.WaitForFixedUpdate(() => {
+	        	crown.gameObject.SetActive(true);
+    		});
         }
 
         void Update() {
@@ -161,7 +169,7 @@ public class Apartment : Building
                     // Raise rent
                     if (Input.GetKeyDown(KeyCode.U)) {
                     	if (CanRaiseRent) {
-                            if (Random.value >= 0.5f) {
+                            if (Random.value >= 0.9f) {
                                 RaiseRentOrder = true;
                                 Events.instance.Raise(new RefuseRentIncreaseEvent(this));
                             } else {
@@ -194,6 +202,7 @@ public class Apartment : Building
             attention.gameObject.SetActive(false);
             Purse.wealth += PropertyValue;
             GetComponent<MeshRenderer>().material = unownedMaterial;
+            xIndicator.gameObject.SetActive(false);
             Events.instance.Raise(new SellApartmentEvent(this));
         }
 

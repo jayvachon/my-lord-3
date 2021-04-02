@@ -162,4 +162,10 @@ public class Grid : MB
         }
         return randomApartment;
     }
+
+    public Apartment GetHighestValueApartment() {
+        return grid.Where(c => c.Value.Building is Apartment)
+            .OrderByDescending(c => c.Value.Building.PropertyValue).FirstOrDefault()
+            .Value.Building as Apartment;
+    }
 }
